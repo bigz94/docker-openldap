@@ -1,7 +1,12 @@
 version: '2'
 services:
   ldap-host:
-    image: "osixia/openldap:1.1.2"
+    # image: "osixia/openldap:1.1.2"
+    build:
+      context: ./image
+      dockerfile: Dockerfile
+      # args:
+      #   buildno: 1
     domainname: cedille.xyz
     hostname: ldap
     extends:
