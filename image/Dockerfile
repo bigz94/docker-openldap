@@ -10,13 +10,23 @@ RUN groupadd -r openldap && useradd -r -g openldap openldap
 # sources: https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/add-service-available
 #          https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/download.sh
 RUN apt-get -y update \
+    && gpg --keyserver keys.gnupg.net --recv-key 62B4981F \
+    && gpg --export -a "Fusiondirectory Archive Manager <contact@fusiondirectory.org>" > FD-archive-key \
+    && apt-key add FD-archive-key && rm FD-archive-key \
+    && echo "deb http://repos.fusiondirectory.org/debian-jessie jessie main" >> /etc/apt/sources.list \
+    && apt-get -y update \
     && /container/tool/add-service-available :cfssl \
-	  && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
+    && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
        ldap-utils \
        openssl \
        slapd \
+       fusiondirectory-schema \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+RUN schema2ldif /etc/ldap/schema/fusiondirectory/rfc2307bis.schema > /etc/ldap/schema/fusiondirectory/rfc2307bis.ldif && \
+    sed -i "s|include: file:///etc/ldap/schema/nis.ldif|include: file:///etc/ldap/schema/fusiondirectory/rfc2307bis.ldif|g" /usr/share/slapd/slapd.init.ldif
 
 # Add service directory to /container/service
 ADD service /container/service
