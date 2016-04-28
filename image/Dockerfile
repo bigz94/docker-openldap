@@ -9,8 +9,7 @@ RUN groupadd -r openldap && useradd -r -g openldap openldap
 # Install OpenLDAP, ldap-utils and cfssl from baseimage and clean apt-get files
 # sources: https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/add-service-available
 #          https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cfssl/download.sh
-RUN apt-get -y update \
-    && gpg --keyserver keys.gnupg.net --recv-key 62B4981F \
+RUN gpg --keyserver keys.gnupg.net --recv-key 62B4981F \
     && gpg --export -a "Fusiondirectory Archive Manager <contact@fusiondirectory.org>" > FD-archive-key \
     && apt-key add FD-archive-key && rm FD-archive-key \
     && echo "deb http://repos.fusiondirectory.org/debian-jessie jessie main" >> /etc/apt/sources.list \
