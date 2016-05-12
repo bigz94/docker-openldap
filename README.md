@@ -82,7 +82,7 @@ This start a new container with OpenLDAP running inside. Let's make
 the first search in our LDAP container:
 
 ```bash
-	docker exec dockeropenldap_ldap-host_1 ldapsearch -h 127.0.0.1 -b "dc=cedille,dc=ens,dc=etsmtl,dc=ca" -D "cn=admin,dc=cedille,dc=ens,dc=etsmtl,dc=ca" -s sub "(objectclass=*)" -w JonSn0w
+docker exec dockeropenldap_ldap-host_1 ldapsearch -h 127.0.0.1 -b "dc=cedille,dc=ens,dc=etsmtl,dc=ca" -D "cn=admin,dc=cedille,dc=ens,dc=etsmtl,dc=ca" -s sub "(objectclass=*)" -w JonSn0w
 ```
 
 ### ldap-search output from quickstart
