@@ -61,14 +61,16 @@ If you find this image useful here's how you can help:
 
 Run OpenLDAP docker image:
 
-	docker run --name my-openldap-container --detach
-    osixia/openldap:1.1.2
+```bash
+docker run --name my-openldap-container --detach  osixia/openldap:1.1.2
+```
 
 This start a new container with OpenLDAP running inside. Let's make
 the first search in our LDAP container:
 
-	docker exec my-openldap-container ldapsearch -x -h localhost -b
-    dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w admin
+```bash
+docker exec my-openldap-container ldapsearch -x -h localhost -b dc=example,dc=org -D "cn=admin,dc=example,dc=org" -w admin
+```
 
 ### docker-compose
 
@@ -79,11 +81,9 @@ Run OpenLDAP/phpldapadmin docker image:
 This start a new container with OpenLDAP running inside. Let's make
 the first search in our LDAP container:
 
-
-	docker exec dockeropenldap_ldap-host_1 ldapsearch -h 127.0.0.1 -b
-    "dc=cedille,dc=ens,dc=etsmtl,dc=ca" -D
-    "cn=admin,dc=cedille,dc=ens,dc=etsmtl,dc=ca" -s sub
-    "(objectclass=*)" -w JonSn0w
+```bash
+	docker exec dockeropenldap_ldap-host_1 ldapsearch -h 127.0.0.1 -b "dc=cedille,dc=ens,dc=etsmtl,dc=ca" -D "cn=admin,dc=cedille,dc=ens,dc=etsmtl,dc=ca" -s sub "(objectclass=*)" -w JonSn0w
+```
 
 ### ldap-search output from quickstart
 
