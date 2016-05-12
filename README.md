@@ -114,9 +114,9 @@ an empty ldap for the company **Example Inc.** and the domain
 By default the admin has the password **admin**. All those default
 settings can be changed at the docker command line, for example:
 
-	docker run --env LDAP_ORGANISATION="My Company" --env
-	LDAP_DOMAIN="my-company.com" \ --env LDAP_ADMIN_PASSWORD="JonSn0w"
-	--detach osixia/openldap:1.1.2
+```bash
+docker run --env LDAP_ORGANISATION="My Company" --env LDAP_DOMAIN="my-company.com" \ --env LDAP_ADMIN_PASSWORD="JonSn0w" --detach osixia/openldap:1.1.2
+```
 
 #### Data persistence
 
@@ -142,9 +142,9 @@ you have a LDAP database on your docker host in the directory
 docker host in the directory `/data/slapd/config` simply mount this
 directories as a volume to `/var/lib/ldap` and `/etc/ldap/slapd.d`:
 
-	docker run --volume /data/slapd/database:/var/lib/ldap \ --volume
-	/data/slapd/config:/etc/ldap/slapd.d --detach
-	osixia/openldap:1.1.2
+```bash
+docker run --volume /data/slapd/database:/var/lib/ldap \ --volume /data/slapd/config:/etc/ldap/slapd.d --detach osixia/openldap:1.1.2
+```
 
 You can also use data volume containers. Please refer to: >
 [https://docs.docker.com/userguide/dockervolumes/](https://docs.docker.com/userguide/dockervolumes/)
