@@ -13,8 +13,8 @@ services:
       service: ldap-variables
       file: docker-compose-variables.yaml
     volumes:
-      - /srv/opendlap/var/lib/ldap:/var/lib/ldap:rw
-      - /srv/openldap/etc/var/lib/s:/etc/ldap/slapd.d:rw
+      - /srv/openldap/var/lib/ldap:/var/lib/ldap:rw
+      - /srv/openldap/etc/ldap/slapd.d:/etc/ldap/slapd.d:rw
     expose:
       - "389"
     ports:
