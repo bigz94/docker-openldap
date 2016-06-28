@@ -7,18 +7,22 @@ services:
       dockerfile: Dockerfile
       # args:
       #   buildno: 1
-    domainname: cedille.xyz
+    domainname: tincan.ch
     hostname: ldap
+    networks:
+      - default
+      - ldap
     extends:
       service: ldap-variables
       file: docker-compose-variables.yaml
     volumes:
-      - /srv/openldap/var/lib/ldap:/var/lib/ldap:rw
-      - /srv/openldap/etc/ldap/slapd.d:/etc/ldap/slapd.d:rw
-    expose:
-      - "389"
-    ports:
-      - "389:389"
+      - ./var/lib/ldap:/var/lib/ldap:rw
+      - ./etc/ldap/slapd.d:/etc/ldap/slapd.d:rw
+    restart: always
+#    expose:
+#      - "389"
+#    ports:
+#      - "389:389"
   ldap-admin:
     image: "osixia/phpldapadmin:0.6.8"
     depends_on:
@@ -31,14 +35,16 @@ services:
     volumes:
       - ./data/environment/env.yaml:/container/environment/01-custom/env.yaml
     # command: --loglevel debug
-
-    expose:
-      - "80"
-      - "443"
+    restart: always
+#    expose:
+#      - "80"
+#      - "443"
     ports:
-      - "80:80"
-      - "443:443"
+      - "8000:443"
     environment:
       - PHPLDAPADMIN_SERVER_ADMIN=michael@faille.io
       - PHPLDAPADMIN_HTTPS=true
       - PHPLDAPADMIN_LDAP_CLIENT_TLS=false
+networks:
+  ldap:
+    driver: bridge
